@@ -168,12 +168,6 @@ where
     /// This function returns the new reference count after the op.
     pub fn inc_refs(&self, val: usize) -> usize {
         let old = self.refs.fetch_add(val, Ordering::SeqCst);
-        tracing::trace!(
-            "[record]: inc record (hash: {}) refs: {} => {}",
-            self.hash(),
-            old,
-            old + val
-        );
         old + val
     }
 
@@ -182,12 +176,6 @@ where
     /// This function returns the new reference count after the op.
     pub fn dec_refs(&self, val: usize) -> usize {
         let old = self.refs.fetch_sub(val, Ordering::SeqCst);
-        tracing::trace!(
-            "[record]: dec record (hash: {}) refs: {} => {}",
-            self.hash(),
-            old,
-            old - val
-        );
         old - val
     }
 }
